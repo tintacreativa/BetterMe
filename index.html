@@ -3,22 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Consejero Cristiano</title>
+<title>BetterMe — Consejero Cristiano</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #1C1917;
-    --ink-soft: #44403C;
-    --ink-muted: #78716C;
-    --parchment: #FAF7F2;
-    --parchment-dark: #F0EBE3;
-    --gold: #B5862A;
-    --gold-light: #D4A853;
-    --gold-pale: #FDF3DC;
-    --sage: #4A6741;
-    --sage-light: #E8F0E7;
-    --border: #E2D9CE;
+    --ink: #1C1917; --ink-soft: #44403C; --ink-muted: #78716C;
+    --parchment: #FAF7F2; --parchment-dark: #F0EBE3;
+    --gold: #B5862A; --gold-pale: #FDF3DC;
+    --sage: #4A6741; --border: #E2D9CE;
     --shadow: rgba(28,25,23,0.08);
     --font-display: 'Cormorant Garamond', Georgia, serif;
     --font-body: 'DM Sans', sans-serif;
@@ -26,22 +19,20 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: var(--font-body); background: var(--parchment); color: var(--ink); min-height: 100vh; display: flex; flex-direction: column; }
 
-  /* ── SETUP SCREEN ── */
   .full-screen { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; background: linear-gradient(160deg, #FAF7F2 0%, #F0EBE3 100%); }
   .setup-card { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem; max-width: 440px; width: 100%; box-shadow: 0 8px 40px var(--shadow); }
   .card-cross { font-size: 40px; display: block; text-align: center; margin-bottom: 1rem; }
-  .card-title { font-family: var(--font-display); font-size: 2rem; font-weight: 300; text-align: center; margin-bottom: 0.4rem; }
+  .card-title { font-family: var(--font-display); font-size: 2rem; font-weight: 300; text-align: center; margin-bottom: .4rem; }
   .card-sub { font-size: 13px; color: var(--ink-muted); text-align: center; margin-bottom: 1.8rem; line-height: 1.6; }
   .setup-notice { background: var(--gold-pale); border: 1px solid #E8D5A3; border-radius: 10px; padding: 12px 16px; margin-bottom: 1.5rem; font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
   .setup-notice strong { color: var(--gold); }
-  .field-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted); display: block; margin-bottom: 6px; }
+  .field-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-muted); display: block; margin-bottom: 6px; }
   .field-group { margin-bottom: 16px; }
-  .field-input { width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; font-family: var(--font-body); font-size: 13px; color: var(--ink); background: var(--parchment); transition: border-color 0.15s; }
+  .field-input { width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; font-family: var(--font-body); font-size: 13px; color: var(--ink); background: var(--parchment); transition: border-color .15s; }
   .field-input:focus { outline: none; border-color: var(--sage); }
   .field-hint { font-size: 11px; color: var(--ink-muted); margin-top: 4px; }
   .field-hint a { color: var(--gold); text-decoration: none; }
-  .field-hint a:hover { text-decoration: underline; }
-  .btn-full { width: 100%; padding: 12px; border: none; border-radius: 10px; font-family: var(--font-body); font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; margin-top: 4px; }
+  .btn-full { width: 100%; padding: 12px; border: none; border-radius: 10px; font-family: var(--font-body); font-size: 14px; font-weight: 500; cursor: pointer; transition: all .2s; margin-top: 4px; }
   .btn-sage { background: var(--sage); color: white; }
   .btn-sage:hover { background: #3A5432; transform: translateY(-1px); }
   .btn-google { background: white; color: var(--ink); border: 1px solid var(--border) !important; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 2px 8px var(--shadow); }
@@ -53,7 +44,6 @@
   .divider { display: flex; align-items: center; gap: 12px; margin: 16px 0; color: var(--ink-muted); font-size: 12px; }
   .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-  /* ── MAIN LAYOUT ── */
   #screen-main { display: none; flex: 1; flex-direction: column; max-width: 860px; width: 100%; margin: 0 auto; }
   #screen-main.visible { display: flex; }
   .topnav { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; border-bottom: 1px solid var(--border); background: white; position: sticky; top: 0; z-index: 10; }
@@ -61,28 +51,27 @@
   .topnav-brand span { color: var(--gold); }
   .topnav-right { display: flex; align-items: center; gap: 10px; }
   .user-avatar { width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--border); object-fit: cover; }
-  .nav-btn { background: none; border: 1px solid var(--border); border-radius: 8px; padding: 6px 14px; font-family: var(--font-body); font-size: 13px; color: var(--ink-soft); cursor: pointer; transition: all 0.15s; }
+  .nav-btn { background: none; border: 1px solid var(--border); border-radius: 8px; padding: 6px 14px; font-family: var(--font-body); font-size: 13px; color: var(--ink-soft); cursor: pointer; transition: all .15s; }
   .nav-btn:hover { background: var(--parchment-dark); color: var(--ink); }
   .nav-btn.primary { background: var(--sage); color: white; border-color: var(--sage); }
   .nav-btn.primary:hover { background: #3A5432; }
   .nav-btn.gold { background: var(--gold); color: white; border-color: var(--gold); }
   .nav-btn.gold:hover { background: #9A7020; }
   .tabs { display: flex; border-bottom: 1px solid var(--border); background: white; padding: 0 24px; }
-  .tab { padding: 12px 18px; font-size: 13px; font-weight: 500; color: var(--ink-muted); cursor: pointer; border-bottom: 2px solid transparent; background: none; border-top: none; border-left: none; border-right: none; font-family: var(--font-body); transition: all 0.15s; }
+  .tab { padding: 12px 18px; font-size: 13px; font-weight: 500; color: var(--ink-muted); cursor: pointer; border-bottom: 2px solid transparent; background: none; border-top: none; border-left: none; border-right: none; font-family: var(--font-body); transition: all .15s; }
   .tab:hover { color: var(--ink); }
   .tab.active { color: var(--sage); border-bottom-color: var(--sage); }
   .panel { display: none; flex: 1; padding: 24px; overflow-y: auto; }
   .panel.active { display: block; }
 
-  /* ── HOME ── */
   .home-greeting h2 { font-family: var(--font-display); font-size: 2rem; font-weight: 300; margin-bottom: 4px; }
   .home-greeting p { font-size: 13px; color: var(--ink-muted); margin-bottom: 20px; }
   .verse-card { background: linear-gradient(135deg, var(--gold-pale) 0%, #FEF9EE 100%); border: 1px solid #E8D5A3; border-radius: 12px; padding: 18px 22px; margin-bottom: 24px; }
   .verse-card blockquote { font-family: var(--font-display); font-style: italic; font-size: 1.1rem; color: var(--ink-soft); line-height: 1.7; margin-bottom: 5px; }
   .verse-card cite { font-size: 12px; color: var(--gold); font-style: normal; }
   .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-  .section-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-muted); }
-  .session-card { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; margin-bottom: 8px; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: space-between; }
+  .section-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-muted); }
+  .session-card { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; margin-bottom: 8px; cursor: pointer; transition: all .15s; display: flex; align-items: center; justify-content: space-between; }
   .session-card:hover { border-color: var(--sage); box-shadow: 0 4px 16px var(--shadow); transform: translateY(-1px); }
   .session-card-title { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
   .session-card-meta { font-size: 12px; color: var(--ink-muted); }
@@ -90,7 +79,6 @@
   .empty-state .icon { font-size: 44px; margin-bottom: 12px; display: block; }
   .empty-state p { font-size: 14px; line-height: 1.6; }
 
-  /* ── CHAT ── */
   #panel-chat { display: none; flex-direction: column; padding: 0; height: calc(100vh - 113px); }
   #panel-chat.active { display: flex; }
   .chat-topbar { display: flex; align-items: center; justify-content: space-between; padding: 12px 24px; border-bottom: 1px solid var(--border); background: white; flex-shrink: 0; }
@@ -108,6 +96,19 @@
   .msg-bubble { padding: 11px 15px; border-radius: 14px; font-size: 14px; line-height: 1.7; white-space: pre-wrap; }
   .msg-wrap.ai .msg-bubble { background: white; border: 1px solid var(--border); border-bottom-left-radius: 4px; box-shadow: 0 2px 8px var(--shadow); }
   .msg-wrap.user .msg-bubble { background: var(--sage); color: white; border-bottom-right-radius: 4px; }
+
+  /* Special message types */
+  .msg-prayer { background: linear-gradient(135deg, #F5F0FF 0%, #EDE8FF 100%); border: 1px solid #C9BBEE; border-radius: 14px; border-bottom-left-radius: 4px; padding: 14px 16px; font-family: var(--font-display); font-style: italic; font-size: 15px; line-height: 1.8; color: #3D2D6B; box-shadow: 0 2px 8px var(--shadow); }
+  .msg-prayer .prayer-label { font-family: var(--font-body); font-style: normal; font-size: 11px; color: #7B68B5; margin-bottom: 8px; display: block; letter-spacing: .05em; text-transform: uppercase; }
+  .msg-closing { background: linear-gradient(135deg, var(--gold-pale) 0%, #FEF9EE 100%); border: 1px solid #E8D5A3; border-radius: 14px; border-bottom-left-radius: 4px; padding: 16px 18px; box-shadow: 0 2px 8px var(--shadow); }
+  .msg-closing .closing-section { margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid #E8D5A3; }
+  .msg-closing .closing-section:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+  .msg-closing .closing-label { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: .1em; color: var(--gold); margin-bottom: 6px; display: block; }
+  .msg-closing .closing-text { font-size: 14px; line-height: 1.7; color: var(--ink-soft); }
+  .msg-closing .closing-prayer { font-family: var(--font-display); font-style: italic; font-size: 15px; line-height: 1.8; color: #3D2D6B; }
+  .msg-closing .closing-media a { color: var(--sage); font-size: 13px; text-decoration: none; font-weight: 500; }
+  .msg-closing .closing-media a:hover { text-decoration: underline; }
+
   .typing { display: flex; align-items: center; gap: 5px; padding: 12px 15px; background: white; border: 1px solid var(--border); border-radius: 14px; border-bottom-left-radius: 4px; width: fit-content; box-shadow: 0 2px 8px var(--shadow); }
   .tdot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); animation: td 1.2s infinite; }
   .tdot:nth-child(2){animation-delay:.2s}.tdot:nth-child(3){animation-delay:.4s}
@@ -120,12 +121,10 @@
   .send-btn:disabled { background: var(--border); cursor: not-allowed; transform: none; }
   .send-btn svg { width: 18px; height: 18px; }
 
-  /* ── CONFIG ── */
-  .config-section { margin-bottom: 22px; }
   .config-row { display: flex; gap: 12px; margin-bottom: 22px; }
-  .config-row .config-section { flex: 1; margin-bottom: 0; }
+  .config-row .field-group { flex: 1; margin-bottom: 0; }
+  .config-section { margin-bottom: 22px; }
 
-  /* ── MODAL ── */
   .modal-bg { display: none; position: fixed; inset: 0; background: rgba(28,25,23,.4); backdrop-filter: blur(4px); z-index: 100; align-items: center; justify-content: center; padding: 1rem; }
   .modal-bg.open { display: flex; }
   .modal-box { background: white; border-radius: 16px; padding: 2rem; max-width: 420px; width: 100%; border: 1px solid var(--border); box-shadow: 0 20px 60px rgba(28,25,23,.2); }
@@ -133,34 +132,27 @@
   .modal-desc { font-size: 13px; color: var(--ink-muted); margin-bottom: 18px; line-height: 1.6; }
   .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 14px; }
 
-  /* ── TOAST ── */
   .toast { position: fixed; bottom: 24px; right: 24px; background: var(--ink); color: white; padding: 10px 18px; border-radius: 8px; font-size: 13px; opacity: 0; transform: translateY(10px); transition: all .3s; z-index: 200; pointer-events: none; }
   .toast.show { opacity: 1; transform: translateY(0); }
 
   @media(max-width:600px){
-    .chat-messages{padding:14px 16px;}
-    .msg-wrap{max-width:88%;}
-    .panel{padding:16px;}
-    .topnav{padding:12px 16px;}
-    .config-row{flex-direction:column;}
+    .chat-messages{padding:14px 16px;} .msg-wrap{max-width:88%;} .panel{padding:16px;} .topnav{padding:12px 16px;} .config-row{flex-direction:column;}
   }
 </style>
 </head>
 <body>
 
-<!-- ══ SETUP SCREEN (keys) ═══════════════════════════════════════════ -->
+<!-- SETUP -->
 <div id="screen-setup" class="full-screen">
   <div class="setup-card">
     <span class="card-cross">✝</span>
-    <h1 class="card-title">Consejero Cristiano</h1>
-    <p class="card-sub">Configura tu acceso una sola vez.<br>Tus claves se guardan solo en este dispositivo.</p>
-    <div class="setup-notice">
-      <strong>🔒 Privacidad:</strong> Tus claves nunca salen de tu navegador. No están en el código ni en ningún servidor. Se guardan en el almacenamiento local de este dispositivo.
-    </div>
+    <h1 class="card-title">BetterMe</h1>
+    <p class="card-sub">Consejero Cristiano Personal<br>Configura tu acceso una sola vez.</p>
+    <div class="setup-notice"><strong>🔒 Privacidad:</strong> Tus claves se guardan únicamente en este dispositivo. No están en el código ni en ningún servidor.</div>
     <div class="field-group">
       <label class="field-label">Google Client ID</label>
       <input type="text" class="field-input" id="setup-google-id" placeholder="123456789-abc...apps.googleusercontent.com">
-      <p class="field-hint">Obtenerlo en <a href="https://console.cloud.google.com" target="_blank">console.cloud.google.com</a> → Credenciales → OAuth</p>
+      <p class="field-hint">Obtenerlo en <a href="https://console.cloud.google.com" target="_blank">console.cloud.google.com</a> → Credenciales</p>
     </div>
     <div class="field-group">
       <label class="field-label">Anthropic API Key</label>
@@ -172,12 +164,12 @@
   </div>
 </div>
 
-<!-- ══ AUTH SCREEN (Google login) ════════════════════════════════════ -->
+<!-- AUTH -->
 <div id="screen-auth" class="full-screen" style="display:none;">
   <div class="setup-card">
     <span class="card-cross">✝</span>
-    <h1 class="card-title">Consejero Cristiano</h1>
-    <p class="card-sub">Un espacio de sanación interior<br>guiado por la Palabra de Dios</p>
+    <h1 class="card-title">BetterMe</h1>
+    <p class="card-sub">Consejero Cristiano Personal</p>
     <div class="auth-verse">
       Él sana a los quebrantados de corazón,<br>y venda sus heridas.
       <cite>— Salmos 147:3</cite>
@@ -188,14 +180,14 @@
     </button>
     <p class="error-msg" id="auth-error"></p>
     <div class="divider">o</div>
-    <button class="nav-btn" style="width:100%; font-size:12px; color:var(--ink-muted);" onclick="resetSetup()">Cambiar configuración de claves</button>
+    <button class="nav-btn" style="width:100%;font-size:12px;color:var(--ink-muted);" onclick="resetSetup()">Cambiar configuración de claves</button>
   </div>
 </div>
 
-<!-- ══ MAIN SCREEN ════════════════════════════════════════════════════ -->
+<!-- MAIN -->
 <div id="screen-main">
   <nav class="topnav">
-    <div class="topnav-brand"><span>✝</span> Consejero Cristiano</div>
+    <div class="topnav-brand"><span>✝</span> BetterMe</div>
     <div class="topnav-right">
       <span id="user-name-display" style="font-size:13px;color:var(--ink-muted);"></span>
       <img id="user-avatar" class="user-avatar" src="" alt="" style="display:none;">
@@ -222,9 +214,7 @@
       <span class="section-label">Sesiones anteriores</span>
       <button class="nav-btn primary" onclick="startNewSession()">+ Nueva sesión</button>
     </div>
-    <div id="sessions-list">
-      <div class="empty-state"><span class="icon">📖</span><p>No hay sesiones guardadas aún.<br>Inicia tu primera sesión.</p></div>
-    </div>
+    <div id="sessions-list"><div class="empty-state"><span class="icon">📖</span><p>No hay sesiones guardadas aún.<br>Inicia tu primera sesión.</p></div></div>
   </div>
 
   <!-- CHAT -->
@@ -251,11 +241,11 @@
   <!-- CONFIG -->
   <div class="panel" id="panel-config">
     <div class="config-row">
-      <div class="config-section">
+      <div class="field-group">
         <label class="field-label">Tu nombre</label>
         <input type="text" class="field-input" id="cfg-username" placeholder="¿Cómo te llamas?">
       </div>
-      <div class="config-section">
+      <div class="field-group">
         <label class="field-label">Nombre del consejero</label>
         <input type="text" class="field-input" id="cfg-counselor" placeholder="Consejero Samuel">
       </div>
@@ -276,11 +266,11 @@
   </div>
 </div>
 
-<!-- ══ END SESSION MODAL ══════════════════════════════════════════════ -->
+<!-- MODAL -->
 <div class="modal-bg" id="modal-end">
   <div class="modal-box">
     <div class="modal-title">Cerrar sesión</div>
-    <p class="modal-desc">Se generará un resumen automático y se guardará en tu Google Drive, en la carpeta <strong>Consejero Cristiano</strong>.</p>
+    <p class="modal-desc">Se generará un resumen y se guardará en tu Google Drive, en la carpeta <strong>BetterMe</strong>.</p>
     <label class="field-label">Nombre para esta sesión</label>
     <input type="text" class="field-input" id="session-name-input" placeholder="Ej: Relación con mi padre">
     <div class="modal-actions">
@@ -293,75 +283,85 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// ── CONSTANTS ─────────────────────────────────────────────────────────
 const SCOPES = 'https://www.googleapis.com/auth/drive.file';
 const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest';
-const DRIVE_FOLDER = 'Consejero Cristiano';
+const DRIVE_FOLDER = 'BetterMe';
+
 const VERSES = [
   { t: 'Él sana a los quebrantados de corazón, y venda sus heridas.', r: 'Salmos 147:3' },
   { t: 'Venid a mí todos los que estáis trabajados y cargados, y yo os haré descansar.', r: 'Mateo 11:28' },
   { t: 'Todo lo puedo en Cristo que me fortalece.', r: 'Filipenses 4:13' },
-  { t: 'El Señor está cerca de los quebrantados de corazón; y salva a los contritos de espíritu.', r: 'Salmos 34:18' },
+  { t: 'El Señor está cerca de los quebrantados de corazón.', r: 'Salmos 34:18' },
   { t: 'Confía en el Señor con todo tu corazón, y no te apoyes en tu propio entendimiento.', r: 'Proverbios 3:5' },
   { t: 'El amor nunca deja de ser.', r: '1 Corintios 13:8' },
-  { t: 'Porque yo sé los pensamientos que tengo acerca de vosotros, pensamientos de paz.', r: 'Jeremías 29:11' },
+  { t: 'Porque yo sé los pensamientos que tengo acerca de vosotros, pensamientos de paz y no de mal.', r: 'Jeremías 29:11' },
 ];
 
-const SYSTEM_PROMPT = `Eres un consejero cristiano profesional con formación en psicología psicodinámica aplicada desde una perspectiva bíblica. Tu nombre es {COUNSELOR_NAME}.
+const SYSTEM_PROMPT = `Eres un consejero cristiano profesional llamado {COUNSELOR_NAME}, con formación en psicología psicodinámica aplicada desde una perspectiva bíblica profunda.
 
-IDENTIDAD Y ENFOQUE:
-- Integras la Palabra de Dios como fundamento de todo proceso de sanación interior
+═══ IDENTIDAD Y FUNDAMENTO ═══
+- La Palabra de Dios es el fundamento absoluto de todo proceso de sanación interior
 - Tu enfoque es psicodinámico: explorar el pasado para comprender el presente y sanar heridas profundas
-- Crees que la sanación verdadera viene de Cristo (Isaías 53:5) y que la psicología es herramienta al servicio de esa sanidad
-- Tienes carácter, perspectiva teológica clara y profundidad emocional
+- Crees que la sanación verdadera viene únicamente de Jesucristo (Isaías 53:5)
+- Reconoces que tú mismo (como herramienta de IA) estás bajo la autoridad de Jesucristo durante esta sesión
+- Referencias doctrinales y autores: Marcos Witt, Judah Smith, Erwin McManus, Andy Stanley, Neil T. Anderson, David Seamands, y la Biblia como autoridad máxima
 
-TONO Y ESTILO:
+═══ TONO Y ESTILO ═══
 - Cálido, empático y cercano — como un pastor de confianza
 - Directo y estructurado — vas al fondo sin rodeos innecesarios
-- Haces preguntas reflexivas y profundas
-- Citas versículos cuando son genuinamente relevantes, nunca forzado
+- Preguntas reflexivas y profundas, no superficiales
+- Versículos citados solo cuando son genuinamente relevantes, nunca forzados
 
-MÉTODO:
-- Cada sesión abre con una breve oración o reflexión inicial
-- Escuchas activamente antes de interpretar
-- Conectas emociones actuales con patrones del pasado (heridas, vínculos, traumas)
-- Al final, ofreces una reflexión o tarea espiritual concreta
+═══ ESTRUCTURA OBLIGATORIA DE SESIÓN (~15 minutos) ═══
 
-PERSONA ATENDIDA:
+**APERTURA (siempre al inicio):**
+Orar en voz alta a Jesucristo. La oración debe:
+- Reconocer explícitamente la deidad y señorío de Jesucristo por encima de todo, incluyendo la tecnología e IA
+- Declarar que esta sesión será dirigida por Él
+- Pedir que tanto el consejero (Claude) como el consultante se sometan a Su autoridad
+- Tono reverente, íntimo y sincero — no religioso ni formulaico
+Presenta la oración en el formato especial: JSON con tipo "prayer" (ver más abajo)
+
+**DESARROLLO (~10 min):**
+- Escuchar activamente antes de interpretar
+- Conectar emociones actuales con patrones del pasado
+- Máximo 3-4 intercambios profundos — administra el tiempo conscientemente
+- Cuando falten ~3 minutos, avisa naturalmente que vas hacia el cierre
+
+**CIERRE (siempre al final, cuando el usuario indique o el tiempo se agote):**
+Presenta el cierre en formato JSON especial con tipo "closing" que incluya exactamente estas 4 secciones:
+1. resumen: Lo aprendido en esta sesión (3-5 puntos concisos)
+2. tarea: Una tarea práctica específica y realizable para realizar fuera de la sesión
+3. oracion: Una oración de cierre a Jesucristo, agradeciendo y encomendando lo trabajado
+4. media: Recomienda UNA canción o video cristiano relacionado al tema de hoy. Incluye: título, artista, y un link de búsqueda en YouTube así: https://www.youtube.com/results?search_query=TITULO+ARTISTA
+
+═══ FORMATO DE RESPUESTAS ESPECIALES ═══
+Cuando debas presentar una oración de apertura, responde ÚNICAMENTE con este JSON (sin texto adicional):
+{"type":"prayer","content":"[texto de la oración aquí]"}
+
+Cuando debas presentar el cierre, responde ÚNICAMENTE con este JSON (sin texto adicional):
+{"type":"closing","resumen":"[texto]","tarea":"[texto]","oracion":"[texto]","media_titulo":"[título canción]","media_artista":"[artista]","media_url":"[url youtube search]"}
+
+Para respuestas normales de conversación, responde en texto normal.
+
+═══ PERSONA ATENDIDA ═══
 Nombre: {USER_NAME}
 Contexto permanente: {USER_CONTEXT}
 Ajustes: {USER_FOCUS}
 
-HISTORIAL ANTERIOR:
-{SESSION_HISTORY}
+═══ HISTORIAL DE SESIONES ANTERIORES ═══
+{SESSION_HISTORY}`;
 
-Comienza la sesión con una bienvenida cálida y apertura espiritual. Si hay historial, reconoce el proceso.`;
+let accessToken = null, driveFolderId = null, messages = [], userProfile = {}, tokenClient = null;
 
-// ── STATE ─────────────────────────────────────────────────────────────
-let accessToken = null;
-let driveFolderId = null;
-let messages = [];
-let userProfile = {};
-let tokenClient = null;
-
-// ── KEYS (stored in localStorage, never in code) ──────────────────────
-function getKeys() {
-  return {
-    googleId: localStorage.getItem('cc_google_id') || '',
-    anthropicKey: localStorage.getItem('cc_anthropic_key') || '',
-  };
-}
+function getKeys() { return { googleId: localStorage.getItem('cc_google_id')||'', anthropicKey: localStorage.getItem('cc_anthropic_key')||'' }; }
 
 function saveSetup() {
   const gId = document.getElementById('setup-google-id').value.trim();
   const aKey = document.getElementById('setup-anthropic-key').value.trim();
   const err = document.getElementById('setup-error');
-  if (!gId || !gId.includes('apps.googleusercontent.com')) {
-    err.textContent = 'El Client ID de Google no parece válido.'; return;
-  }
-  if (!aKey || !aKey.startsWith('sk-ant-')) {
-    err.textContent = 'La API key de Anthropic debe empezar con sk-ant-...'; return;
-  }
+  if (!gId || !gId.includes('apps.googleusercontent.com')) { err.textContent = 'El Client ID de Google no parece válido.'; return; }
+  if (!aKey || !aKey.startsWith('sk-ant-')) { err.textContent = 'La API key debe empezar con sk-ant-...'; return; }
   localStorage.setItem('cc_google_id', gId);
   localStorage.setItem('cc_anthropic_key', aKey);
   err.textContent = '';
@@ -369,14 +369,12 @@ function saveSetup() {
 }
 
 function resetSetup() {
-  localStorage.removeItem('cc_google_id');
-  localStorage.removeItem('cc_anthropic_key');
+  localStorage.removeItem('cc_google_id'); localStorage.removeItem('cc_anthropic_key');
   document.getElementById('screen-auth').style.display = 'none';
   document.getElementById('screen-main').classList.remove('visible');
   document.getElementById('screen-setup').style.display = 'flex';
 }
 
-// ── GOOGLE AUTH ───────────────────────────────────────────────────────
 async function showAuthScreen() {
   document.getElementById('screen-setup').style.display = 'none';
   document.getElementById('screen-auth').style.display = 'flex';
@@ -385,8 +383,7 @@ async function showAuthScreen() {
 
 async function initGoogleClients() {
   const { googleId } = getKeys();
-  await loadGapi();
-  await loadGis(googleId);
+  await loadGapi(); await loadGis(googleId);
 }
 
 function loadGapi() {
@@ -394,30 +391,19 @@ function loadGapi() {
     if (window.gapi && gapi.client) { res(); return; }
     const s = document.createElement('script');
     s.src = 'https://apis.google.com/js/api.js';
-    s.onload = () => gapi.load('client', async () => {
-      await gapi.client.init({ discoveryDocs: [DISCOVERY_DOC] });
-      res();
-    });
-    s.onerror = rej;
-    document.head.appendChild(s);
+    s.onload = () => gapi.load('client', async () => { await gapi.client.init({ discoveryDocs: [DISCOVERY_DOC] }); res(); });
+    s.onerror = rej; document.head.appendChild(s);
   });
 }
 
 function loadGis(clientId) {
   return new Promise((res, rej) => {
     const existing = document.querySelector('script[src="https://accounts.google.com/gsi/client"]');
-    if (existing && window.google) {
-      tokenClient = google.accounts.oauth2.initTokenClient({ client_id: clientId, scope: SCOPES, callback: handleToken });
-      res(); return;
-    }
+    if (existing && window.google) { tokenClient = google.accounts.oauth2.initTokenClient({ client_id: clientId, scope: SCOPES, callback: handleToken }); res(); return; }
     const s = document.createElement('script');
     s.src = 'https://accounts.google.com/gsi/client';
-    s.onload = () => {
-      tokenClient = google.accounts.oauth2.initTokenClient({ client_id: clientId, scope: SCOPES, callback: handleToken });
-      res();
-    };
-    s.onerror = rej;
-    document.head.appendChild(s);
+    s.onload = () => { tokenClient = google.accounts.oauth2.initTokenClient({ client_id: clientId, scope: SCOPES, callback: handleToken }); res(); };
+    s.onerror = rej; document.head.appendChild(s);
   });
 }
 
@@ -425,35 +411,22 @@ async function handleToken(resp) {
   if (resp.error) { document.getElementById('auth-error').textContent = 'Error al autorizar: ' + resp.error; return; }
   accessToken = resp.access_token;
   gapi.client.setToken({ access_token: accessToken });
-  await fetchUserProfile();
-  await initApp();
+  await fetchUserProfile(); await initApp();
 }
 
 function signIn() { tokenClient.requestAccessToken({ prompt: 'consent' }); }
-
-function signOut() {
-  google.accounts.oauth2.revoke(accessToken, () => {
-    accessToken = null;
-    document.getElementById('screen-main').classList.remove('visible');
-    document.getElementById('screen-auth').style.display = 'flex';
-  });
-}
+function signOut() { google.accounts.oauth2.revoke(accessToken, () => { accessToken = null; document.getElementById('screen-main').classList.remove('visible'); document.getElementById('screen-auth').style.display = 'flex'; }); }
 
 async function fetchUserProfile() {
-  try {
-    const r = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', { headers: { Authorization: `Bearer ${accessToken}` } });
-    userProfile = await r.json();
-  } catch {}
+  try { const r = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', { headers: { Authorization: `Bearer ${accessToken}` } }); userProfile = await r.json(); } catch {}
 }
 
-// ── APP INIT ──────────────────────────────────────────────────────────
 async function initApp() {
   document.getElementById('screen-auth').style.display = 'none';
   document.getElementById('screen-main').classList.add('visible');
   if (userProfile.given_name) document.getElementById('user-name-display').textContent = userProfile.given_name;
   if (userProfile.picture) { const av = document.getElementById('user-avatar'); av.src = userProfile.picture; av.style.display = 'block'; }
-  const now = new Date();
-  const h = now.getHours();
+  const now = new Date(); const h = now.getHours();
   const g = h < 12 ? 'Buenos días' : h < 18 ? 'Buenas tardes' : 'Buenas noches';
   const cfg = getConfig();
   document.getElementById('greeting-text').textContent = `${g}${cfg.userName ? ', ' + cfg.userName : ''}`;
@@ -461,21 +434,15 @@ async function initApp() {
   const v = VERSES[now.getDate() % VERSES.length];
   document.getElementById('daily-verse').textContent = `"${v.t}"`;
   document.getElementById('daily-verse-ref').textContent = `— ${v.r}`;
-  loadConfigUI();
-  await ensureDriveFolder();
-  await loadSessions();
+  loadConfigUI(); await ensureDriveFolder(); await loadSessions();
 }
 
-// ── DRIVE ─────────────────────────────────────────────────────────────
 async function ensureDriveFolder() {
   try {
     const r = await gapi.client.drive.files.list({ q: `name='${DRIVE_FOLDER}' and mimeType='application/vnd.google-apps.folder' and trashed=false`, fields: 'files(id)' });
     const f = r.result.files;
     if (f && f.length) { driveFolderId = f[0].id; }
-    else {
-      const cr = await gapi.client.drive.files.create({ resource: { name: DRIVE_FOLDER, mimeType: 'application/vnd.google-apps.folder' }, fields: 'id' });
-      driveFolderId = cr.result.id;
-    }
+    else { const cr = await gapi.client.drive.files.create({ resource: { name: DRIVE_FOLDER, mimeType: 'application/vnd.google-apps.folder' }, fields: 'id' }); driveFolderId = cr.result.id; }
   } catch (e) { console.error(e); }
 }
 
@@ -491,8 +458,8 @@ function renderSessions(files) {
   const el = document.getElementById('sessions-list');
   if (!files.length) { el.innerHTML = `<div class="empty-state"><span class="icon">📖</span><p>No hay sesiones guardadas aún.<br>Inicia tu primera sesión.</p></div>`; return; }
   el.innerHTML = files.map(f => {
-    const name = f.name.replace(/^sesion_/, '').replace(/\.json$/, '').replace(/_\d+$/, '').replace(/_/g, ' ');
-    const date = new Date(f.createdTime).toLocaleDateString('es-CR', { year: 'numeric', month: 'long', day: 'numeric' });
+    const name = f.name.replace(/^sesion_/,'').replace(/\.json$/,'').replace(/_\d+$/,'').replace(/_/g,' ');
+    const date = new Date(f.createdTime).toLocaleDateString('es-CR', { year:'numeric', month:'long', day:'numeric' });
     return `<div class="session-card" onclick="openSession('${f.id}','${name.replace(/'/g,"\\'")}')"><div><div class="session-card-title">${name}</div><div class="session-card-meta">${date}</div></div><span style="color:var(--ink-muted);font-size:18px;">›</span></div>`;
   }).join('');
 }
@@ -500,33 +467,27 @@ function renderSessions(files) {
 async function saveSessionToDrive(name, content) {
   if (!driveFolderId) return;
   const fileName = `sesion_${name.replace(/\s+/g,'_')}_${Date.now()}.json`;
-  const boundary = '-------ConsejeroApp';
+  const boundary = '-------BetterMeApp';
   const meta = { name: fileName, mimeType: 'application/json', parents: [driveFolderId] };
   const body = `\r\n--${boundary}\r\nContent-Type: application/json\r\n\r\n${JSON.stringify(meta)}\r\n--${boundary}\r\nContent-Type: application/json\r\n\r\n${JSON.stringify(content)}\r\n--${boundary}--`;
   await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart', {
-    method: 'POST',
-    headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': `multipart/related; boundary="${boundary}"` },
-    body
+    method: 'POST', headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': `multipart/related; boundary="${boundary}"` }, body
   });
 }
 
 async function loadSessionFromDrive(fileId) {
-  try {
-    const r = await gapi.client.drive.files.get({ fileId, alt: 'media' });
-    return typeof r.result === 'string' ? JSON.parse(r.result) : r.result;
-  } catch { return null; }
+  try { const r = await gapi.client.drive.files.get({ fileId, alt: 'media' }); return typeof r.result === 'string' ? JSON.parse(r.result) : r.result; }
+  catch { return null; }
 }
 
-// ── SESSIONS ──────────────────────────────────────────────────────────
 function startNewSession() {
   messages = [];
   const now = new Date();
   document.getElementById('chat-session-name').textContent = 'Nueva sesión';
-  document.getElementById('chat-session-date').textContent = now.toLocaleDateString('es-CR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  document.getElementById('chat-session-date').textContent = now.toLocaleDateString('es-CR', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
   document.getElementById('chat-messages').innerHTML = '';
   document.getElementById('session-name-input').value = '';
-  switchTab('chat');
-  beginSession('');
+  switchTab('chat'); beginSession('');
 }
 
 async function openSession(fileId, name) {
@@ -534,24 +495,19 @@ async function openSession(fileId, name) {
   document.getElementById('chat-session-name').textContent = name;
   document.getElementById('chat-session-date').textContent = 'Retomando sesión...';
   document.getElementById('chat-messages').innerHTML = '';
-  switchTab('chat');
-  showTyping();
+  switchTab('chat'); showTyping();
   const data = await loadSessionFromDrive(fileId);
   hideTyping();
-  if (data && data.messages) {
-    data.messages.slice(-8).forEach(m => addMessage(m.role === 'user' ? 'user' : 'ai', m.content));
-    messages = data.messages.slice(-20);
-  }
-  await beginSession(data ? (data.summary || '') : '');
+  if (data && data.messages) { data.messages.slice(-8).forEach(m => addMessage(m.role==='user'?'user':'ai', m.content, true)); messages = data.messages.slice(-20); }
+  await beginSession(data ? (data.summary||'') : '');
 }
 
 async function beginSession(history) {
-  setStatus('Reflexionando...', true);
-  showTyping();
+  setStatus('Reflexionando...', true); showTyping();
   try {
-    const reply = await callClaude([{ role: 'user', content: 'Comienza la sesión.' }], history);
+    const reply = await callClaude([{ role:'user', content:'Comienza la sesión con la oración de apertura.' }], history);
     hideTyping(); addMessage('ai', reply);
-    messages.push({ role: 'assistant', content: reply });
+    messages.push({ role:'assistant', content: reply });
     setStatus('En sesión', false);
   } catch { hideTyping(); addMessage('ai', 'Hubo un problema. Intenta de nuevo.'); setStatus('Error', false); }
 }
@@ -562,43 +518,106 @@ async function sendMessage() {
   if (!text) return;
   input.value = ''; input.style.height = '44px';
   addMessage('user', text);
-  messages.push({ role: 'user', content: text });
+  messages.push({ role:'user', content:text });
   setStatus('Reflexionando...', true); showTyping();
   try {
     const reply = await callClaude(messages.slice(-20), '');
     hideTyping(); addMessage('ai', reply);
-    messages.push({ role: 'assistant', content: reply });
+    messages.push({ role:'assistant', content:reply });
     setStatus('En sesión', false);
   } catch { hideTyping(); addMessage('ai', 'Error. Intenta de nuevo.'); setStatus('Error', false); }
 }
 
-// ── CLAUDE ────────────────────────────────────────────────────────────
 async function callClaude(msgs, history) {
   const { anthropicKey } = getKeys();
   const cfg = getConfig();
   const system = SYSTEM_PROMPT
-    .replace('{COUNSELOR_NAME}', cfg.counselorName || 'Consejero Samuel')
-    .replace('{USER_NAME}', cfg.userName || 'el consultante')
-    .replace('{USER_CONTEXT}', cfg.userContext || 'Sin contexto adicional.')
-    .replace('{USER_FOCUS}', cfg.userFocus || 'Sin ajustes adicionales.')
-    .replace('{SESSION_HISTORY}', history || 'Primera sesión o sin historial previo.');
+    .replace('{COUNSELOR_NAME}', cfg.counselorName||'Consejero Samuel')
+    .replace('{USER_NAME}', cfg.userName||'el consultante')
+    .replace('{USER_CONTEXT}', cfg.userContext||'Sin contexto adicional.')
+    .replace('{USER_FOCUS}', cfg.userFocus||'Sin ajustes adicionales.')
+    .replace('{SESSION_HISTORY}', history||'Primera sesión o sin historial previo.');
   const r = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'x-api-key': anthropicKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
-    body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1024, system, messages: msgs })
+    headers: { 'Content-Type':'application/json', 'x-api-key':anthropicKey, 'anthropic-version':'2023-06-01', 'anthropic-dangerous-direct-browser-access':'true' },
+    body: JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:1200, system, messages:msgs })
   });
   const d = await r.json();
   if (d.error) throw new Error(d.error.message);
-  return (d.content || []).map(b => b.text || '').join('');
+  return (d.content||[]).map(b=>b.text||'').join('');
 }
 
 async function generateSummary() {
-  const t = messages.map(m => `${m.role==='user'?'Consultante':'Consejero'}: ${m.content}`).join('\n\n');
-  try { return await callClaude([{ role: 'user', content: `Resume esta sesión de consejería para el historial. Incluye: 1) Temas tratados, 2) Emociones y patrones del pasado, 3) Referencias bíblicas, 4) Tarea asignada, 5) Próximos pasos.\n\n${t}` }], ''); }
+  const t = messages.map(m=>`${m.role==='user'?'Consultante':'Consejero'}: ${m.content}`).join('\n\n');
+  try { return await callClaude([{ role:'user', content:`Resume esta sesión para el historial. Incluye: temas tratados, patrones del pasado identificados, referencias bíblicas, tarea asignada, próximos pasos.\n\n${t}` }], ''); }
   catch { return 'Resumen no disponible.'; }
 }
 
-// ── END SESSION ───────────────────────────────────────────────────────
+// ── RENDER MESSAGES ────────────────────────────────────────────────
+function addMessage(role, text, skipParse) {
+  const w = document.createElement('div');
+  const cfg = getConfig();
+
+  if (role === 'ai' && !skipParse) {
+    // Try to parse special JSON responses
+    const trimmed = text.trim();
+    if (trimmed.startsWith('{') && trimmed.includes('"type"')) {
+      try {
+        const parsed = JSON.parse(trimmed);
+        if (parsed.type === 'prayer') {
+          w.className = 'msg-wrap ai';
+          w.innerHTML = `<div class="msg-label">${cfg.counselorName||'Consejero Samuel'}</div>
+            <div class="msg-prayer">
+              <span class="prayer-label">🕊 Oración de apertura</span>
+              ${parsed.content.replace(/\n/g,'<br>')}
+            </div>`;
+          document.getElementById('chat-messages').appendChild(w);
+          document.getElementById('chat-messages').scrollTop = 99999;
+          return;
+        }
+        if (parsed.type === 'closing') {
+          const ytUrl = parsed.media_url || `https://www.youtube.com/results?search_query=${encodeURIComponent((parsed.media_titulo||'')+ ' ' +(parsed.media_artista||''))}`;
+          w.className = 'msg-wrap ai';
+          w.innerHTML = `<div class="msg-label">${cfg.counselorName||'Consejero Samuel'}</div>
+            <div class="msg-closing">
+              <div class="closing-section">
+                <span class="closing-label">📋 Lo que aprendimos hoy</span>
+                <div class="closing-text">${(parsed.resumen||'').replace(/\n/g,'<br>')}</div>
+              </div>
+              <div class="closing-section">
+                <span class="closing-label">✏️ Tarea para esta semana</span>
+                <div class="closing-text">${(parsed.tarea||'').replace(/\n/g,'<br>')}</div>
+              </div>
+              <div class="closing-section">
+                <span class="closing-label">🙏 Oración de cierre</span>
+                <div class="closing-prayer">${(parsed.oracion||'').replace(/\n/g,'<br>')}</div>
+              </div>
+              <div class="closing-section closing-media">
+                <span class="closing-label">🎵 Para acompañar tu proceso</span>
+                <div class="closing-text"><a href="${ytUrl}" target="_blank">▶ ${parsed.media_titulo||'Ver recomendación'} — ${parsed.media_artista||''}</a></div>
+              </div>
+            </div>`;
+          document.getElementById('chat-messages').appendChild(w);
+          document.getElementById('chat-messages').scrollTop = 99999;
+          return;
+        }
+      } catch {}
+    }
+  }
+
+  w.className = `msg-wrap ${role}`;
+  if (role === 'ai') w.innerHTML = `<div class="msg-label">${cfg.counselorName||'Consejero Samuel'}</div><div class="msg-bubble">${text.replace(/\n/g,'<br>')}</div>`;
+  else w.innerHTML = `<div class="msg-bubble">${text.replace(/\n/g,'<br>')}</div>`;
+  const c = document.getElementById('chat-messages');
+  c.appendChild(w); c.scrollTop = c.scrollHeight;
+}
+
+let typingEl = null;
+function showTyping() { typingEl = document.createElement('div'); typingEl.className = 'msg-wrap ai'; typingEl.innerHTML = `<div class="typing"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>`; const c = document.getElementById('chat-messages'); c.appendChild(typingEl); c.scrollTop = c.scrollHeight; }
+function hideTyping() { if (typingEl) { typingEl.remove(); typingEl = null; } }
+
+function setStatus(t, loading) { document.getElementById('status-text').textContent = t; document.getElementById('send-btn').disabled = loading; document.getElementById('status-dot').className = 'status-dot'+(loading?'':' on'); }
+
 function openEndModal() { document.getElementById('modal-end').classList.add('open'); }
 function closeModal() { document.getElementById('modal-end').classList.remove('open'); }
 
@@ -607,64 +626,24 @@ async function confirmEndSession() {
   closeModal(); setStatus('Guardando...', true);
   showToast('Generando resumen y guardando en Drive...');
   const summary = await generateSummary();
-  await saveSessionToDrive(name, { name, date: new Date().toISOString(), summary, messages: messages.slice(0, 60) });
+  await saveSessionToDrive(name, { name, date: new Date().toISOString(), summary, messages: messages.slice(0,60) });
   messages = []; setStatus('En sesión', false);
   showToast('✓ Sesión guardada en Google Drive');
   await loadSessions(); switchTab('home');
 }
 
-// ── UI ────────────────────────────────────────────────────────────────
-function addMessage(role, text) {
-  const w = document.createElement('div');
-  w.className = `msg-wrap ${role}`;
-  const cfg = getConfig();
-  if (role === 'ai') w.innerHTML = `<div class="msg-label">${cfg.counselorName||'Consejero Samuel'}</div><div class="msg-bubble">${text.replace(/\n/g,'<br>')}</div>`;
-  else w.innerHTML = `<div class="msg-bubble">${text.replace(/\n/g,'<br>')}</div>`;
-  const c = document.getElementById('chat-messages');
-  c.appendChild(w); c.scrollTop = c.scrollHeight;
-}
-
-let typingEl = null;
-function showTyping() {
-  typingEl = document.createElement('div');
-  typingEl.className = 'msg-wrap ai';
-  typingEl.innerHTML = `<div class="typing"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>`;
-  const c = document.getElementById('chat-messages'); c.appendChild(typingEl); c.scrollTop = c.scrollHeight;
-}
-function hideTyping() { if (typingEl) { typingEl.remove(); typingEl = null; } }
-
-function setStatus(t, loading) {
-  document.getElementById('status-text').textContent = t;
-  document.getElementById('send-btn').disabled = loading;
-  document.getElementById('status-dot').className = 'status-dot' + (loading ? '' : ' on');
-}
-
-function switchTab(t) {
-  ['home','chat','config'].forEach(id => {
-    document.getElementById(`panel-${id}`).classList.toggle('active', id===t);
-    document.getElementById(`tab-${id}`).classList.toggle('active', id===t);
-  });
-}
-
-function handleKey(e) { if (e.key==='Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }
+function switchTab(t) { ['home','chat','config'].forEach(id => { document.getElementById(`panel-${id}`).classList.toggle('active',id===t); document.getElementById(`tab-${id}`).classList.toggle('active',id===t); }); }
+function handleKey(e) { if (e.key==='Enter'&&!e.shiftKey) { e.preventDefault(); sendMessage(); } }
 function autoResize(el) { el.style.height='44px'; el.style.height=Math.min(el.scrollHeight,120)+'px'; }
 function showToast(msg) { const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3500); }
-
 function getConfig() { try { return JSON.parse(localStorage.getItem('cc_config')||'{}'); } catch { return {}; } }
 function loadConfigUI() { const c=getConfig(); document.getElementById('cfg-username').value=c.userName||''; document.getElementById('cfg-counselor').value=c.counselorName||'Consejero Samuel'; document.getElementById('cfg-context').value=c.userContext||''; document.getElementById('cfg-focus').value=c.userFocus||''; }
-function saveConfig() {
-  localStorage.setItem('cc_config', JSON.stringify({ userName: document.getElementById('cfg-username').value, counselorName: document.getElementById('cfg-counselor').value||'Consejero Samuel', userContext: document.getElementById('cfg-context').value, userFocus: document.getElementById('cfg-focus').value }));
-  showToast('✓ Configuración guardada'); switchTab('home');
-}
+function saveConfig() { localStorage.setItem('cc_config', JSON.stringify({ userName:document.getElementById('cfg-username').value, counselorName:document.getElementById('cfg-counselor').value||'Consejero Samuel', userContext:document.getElementById('cfg-context').value, userFocus:document.getElementById('cfg-focus').value })); showToast('✓ Configuración guardada'); switchTab('home'); }
 
-// ── BOOT ──────────────────────────────────────────────────────────────
 (async () => {
   const { googleId, anthropicKey } = getKeys();
-  if (googleId && anthropicKey) {
-    await showAuthScreen();
-  } else {
-    document.getElementById('screen-setup').style.display = 'flex';
-  }
+  if (googleId && anthropicKey) { await showAuthScreen(); }
+  else { document.getElementById('screen-setup').style.display = 'flex'; }
 })();
 </script>
 </body>

@@ -315,7 +315,7 @@ const SYSTEM_PROMPT = `Eres un consejero cristiano profesional llamado {COUNSELO
 ═══ ESTRUCTURA OBLIGATORIA DE SESIÓN (~15 minutos) ═══
 
 **APERTURA (siempre al inicio):**
-Orar en voz alta a Jesucristo. La oración debe:
+Si hay historial de continuidad de una sesión anterior, ANTES de la oración reconoce brevemente dónde quedaron y conéctalo con el siguiente paso sugerido (1-2 frases cálidas dentro del campo content de la oración o como reflexión inicial). Luego ora en voz alta a Jesucristo. La oración debe:
 - Reconocer explícitamente la deidad y señorío de Jesucristo por encima de todo, incluyendo la tecnología e IA
 - Declarar que esta sesión será dirigida por Él
 - Pedir que tanto el consejero (Claude) como el consultante se sometan a Su autoridad
@@ -480,14 +480,29 @@ async function loadSessionFromDrive(fileId) {
   catch { return null; }
 }
 
-function startNewSession() {
+async function startNewSession() {
   messages = [];
   const now = new Date();
   document.getElementById('chat-session-name').textContent = 'Nueva sesión';
   document.getElementById('chat-session-date').textContent = now.toLocaleDateString('es-CR', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
   document.getElementById('chat-messages').innerHTML = '';
   document.getElementById('session-name-input').value = '';
-  switchTab('chat'); beginSession('');
+  switchTab('chat'); showTyping();
+  const continuity = await loadLastContinuity();
+  hideTyping();
+  beginSession(continuity);
+}
+
+async function loadLastContinuity() {
+  if (!driveFolderId) return '';
+  try {
+    const r = await gapi.client.drive.files.list({ q: `'${driveFolderId}' in parents and name contains 'sesion_' and trashed=false`, orderBy: 'createdTime desc', fields: 'files(id)', pageSize: 1 });
+    const files = r.result.files || [];
+    if (!files.length) return '';
+    const data = await loadSessionFromDrive(files[0].id);
+    if (!data) return '';
+    return data.continuity || data.summary || '';
+  } catch { return ''; }
 }
 
 async function openSession(fileId, name) {
@@ -536,7 +551,7 @@ async function callClaude(msgs, history) {
     .replace('{USER_NAME}', cfg.userName||'el consultante')
     .replace('{USER_CONTEXT}', cfg.userContext||'Sin contexto adicional.')
     .replace('{USER_FOCUS}', cfg.userFocus||'Sin ajustes adicionales.')
-    .replace('{SESSION_HISTORY}', history||'Primera sesión o sin historial previo.');
+    .replace('{SESSION_HISTORY}', history ? ('NOTA DE CONTINUIDAD DE LA SESIÓN ANTERIOR (usa esto para retomar el proceso donde quedaron):\n' + history) : 'Primera sesión o sin historial previo. Da la bienvenida como un primer encuentro.');
   const r = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: { 'Content-Type':'application/json', 'x-api-key':anthropicKey, 'anthropic-version':'2023-06-01', 'anthropic-dangerous-direct-browser-access':'true' },
@@ -551,6 +566,12 @@ async function generateSummary() {
   const t = messages.map(m=>`${m.role==='user'?'Consultante':'Consejero'}: ${m.content}`).join('\n\n');
   try { return await callClaude([{ role:'user', content:`Resume esta sesión para el historial. Incluye: temas tratados, patrones del pasado identificados, referencias bíblicas, tarea asignada, próximos pasos.\n\n${t}` }], ''); }
   catch { return 'Resumen no disponible.'; }
+}
+
+async function generateContinuity() {
+  const t = messages.map(m=>`${m.role==='user'?'Consultante':'Consejero'}: ${m.content}`).join('\n\n');
+  try { return await callClaude([{ role:'user', content:`Genera un resumen breve de continuidad (máximo 4-5 frases) para retomar en la próxima sesión. Debe incluir SOLO: 1) lo esencial de lo que se trabajó hoy, 2) el patrón o herida central identificado, 3) el siguiente paso sugerido para el análisis. Escríbelo como nota para el consejero, en segunda persona refiriéndote al consultante.\n\n${t}` }], ''); }
+  catch { return ''; }
 }
 
 // ── RENDER MESSAGES ────────────────────────────────────────────────
@@ -626,7 +647,8 @@ async function confirmEndSession() {
   closeModal(); setStatus('Guardando...', true);
   showToast('Generando resumen y guardando en Drive...');
   const summary = await generateSummary();
-  await saveSessionToDrive(name, { name, date: new Date().toISOString(), summary, messages: messages.slice(0,60) });
+  const continuity = await generateContinuity();
+  await saveSessionToDrive(name, { name, date: new Date().toISOString(), summary, continuity, messages: messages.slice(0,60) });
   messages = []; setStatus('En sesión', false);
   showToast('✓ Sesión guardada en Google Drive');
   await loadSessions(); switchTab('home');
